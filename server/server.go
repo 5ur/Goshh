@@ -18,6 +18,7 @@ import (
 type Message struct {
 	CreatedAt time.Time
 	Contents  []byte
+	Rune      string
 }
 
 type UploadedFile struct {
@@ -210,21 +211,27 @@ func main() {
 	// The post endpoint for sending the server a "message"
 	router.POST("/message", func(c *gin.Context) {
 		messageData := c.PostForm("message")
+		rune := c.PostForm("rune")
 		if messageData == "" {
 			c.AbortWithStatus(http.StatusTeapot)
 			return
 		}
-		id := generateRandomID()
+		var id string
+		if rune == "" {
+			id = generateRandomID()
+		} else {
+			id = rune
+		}
 		mu.Lock()
 		messages[id] = Message{
 			CreatedAt: time.Now(),
 			Contents:  []byte(messageData),
+			Rune:      string(rune),
 		}
 		mu.Unlock()
 		url := fmt.Sprintf("%s://%s/message/%s", getScheme(c.Request), c.Request.Host, id)
 		c.String(http.StatusOK, url)
 	})
-
 	// The the endpoint for retrieving a message
 	router.GET("/message/:id", func(c *gin.Context) {
 		// Get the ID of the message from the URL
