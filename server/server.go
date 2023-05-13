@@ -178,8 +178,8 @@ func main() {
 			// Skip logging for the root endpoint
 			SkipPaths: []string{"/"},
 		}
-
-		router.MaxMultipartMemory = 32 << 20 // set the maximum size of form values to 32MB
+		// Set the maximum size of form values to 32MB
+		router.MaxMultipartMemory = 32 << 20
 		router.Use(gin.LoggerWithConfig(loggerConfig))
 	default:
 		// https://github.com/gin-gonic/gin/blob/master/gin.go#LL183C6-L183C9
