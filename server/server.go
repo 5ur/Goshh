@@ -209,31 +209,33 @@ func main() {
 		c.Writer.Write(content)
 	})
 
-	// Savepoint -----------------------------------------------------------------
 	type MessageRequest struct {
 		Message string `json:"message"`
 		Rune    string `json:"rune"`
 	}
 
+	// The endpoint for posting a message
 	router.POST("/message", func(c *gin.Context) {
+		// Create a struct 'request' of type MessageRequest by parsing the JSON request body
 		var request MessageRequest
 		if err := c.BindJSON(&request); err != nil {
-			c.AbortWithStatus(http.StatusBadRequest)
+			// Return a Expectation Failed if the JSON body couldn't be parsed
+			c.AbortWithStatus(http.StatusExpectationFailed)
 			return
 		}
-
+		// If the message is empty, return a teapot
 		if request.Message == "" {
 			c.AbortWithStatus(http.StatusTeapot)
 			return
 		}
-
+		// Generate an ID for the message, either as a random string or based on the rune sent by the client
 		var id string
 		if request.Rune == "" {
 			id = generateRandomID()
 		} else {
 			id = request.Rune
 		}
-
+		// Lock then unlock the messages map on individual creation/posts
 		mu.Lock()
 		messages[id] = Message{
 			CreatedAt: time.Now(),
@@ -241,25 +243,29 @@ func main() {
 			Rune:      string(request.Rune),
 		}
 		mu.Unlock()
-
+		// Return the URL as the response body
 		url := fmt.Sprintf("%s://%s/message/%s", getScheme(c.Request), c.Request.Host, id)
 		c.String(http.StatusOK, url)
 	})
+
 	// The the endpoint for retrieving a message
 	router.GET("/message/:id", func(c *gin.Context) {
-		// Get the ID of the message from the URL
+		// Get the ID of the message from the URL parameter
 		id := c.Param("id")
-		// Find the message in memory
+		// Place a lock on the shared messages map to prevent concurrent access
 		mu.Lock()
 		message, ok := messages[id]
+		// If the message isn't found, release the lock and return a 404
 		if !ok {
 			mu.Unlock()
-			// If the message isn't found, return a 404 error
 			c.AbortWithStatus(http.StatusNotFound)
 			return
 		}
+		// Delete the message from memory once it has been retrieved
 		delete(messages, id)
+		// Release the lock on the shared messages map
 		mu.Unlock()
+		// Set the response content type and return the message contents as plain text
 		c.Data(http.StatusOK, "text/plain; charset=utf-8", []byte(message.Contents))
 	})
 
