@@ -179,6 +179,7 @@ func main() {
 			SkipPaths: []string{"/"},
 		}
 
+		router.MaxMultipartMemory = 32 << 20 // set the maximum size of form values to 32MB
 		router.Use(gin.LoggerWithConfig(loggerConfig))
 	default:
 		// https://github.com/gin-gonic/gin/blob/master/gin.go#LL183C6-L183C9
@@ -208,27 +209,39 @@ func main() {
 		c.Writer.Write(content)
 	})
 
-	// The post endpoint for sending the server a "message"
+	// Savepoint -----------------------------------------------------------------
+	type MessageRequest struct {
+		Message string `json:"message"`
+		Rune    string `json:"rune"`
+	}
+
 	router.POST("/message", func(c *gin.Context) {
-		messageData := c.PostForm("message")
-		rune := c.PostForm("rune")
-		if messageData == "" {
+		var request MessageRequest
+		if err := c.BindJSON(&request); err != nil {
+			c.AbortWithStatus(http.StatusBadRequest)
+			return
+		}
+
+		if request.Message == "" {
 			c.AbortWithStatus(http.StatusTeapot)
 			return
 		}
+
 		var id string
-		if rune == "" {
+		if request.Rune == "" {
 			id = generateRandomID()
 		} else {
-			id = rune
+			id = request.Rune
 		}
+
 		mu.Lock()
 		messages[id] = Message{
 			CreatedAt: time.Now(),
-			Contents:  []byte(messageData),
-			Rune:      string(rune),
+			Contents:  []byte(request.Message),
+			Rune:      string(request.Rune),
 		}
 		mu.Unlock()
+
 		url := fmt.Sprintf("%s://%s/message/%s", getScheme(c.Request), c.Request.Host, id)
 		c.String(http.StatusOK, url)
 	})

@@ -1,10 +1,7 @@
 package main
 
 import (
-	"bufio"
-	"bytes"
 	"context"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -22,8 +19,6 @@ import (
 )
 
 var (
-	pipedData   []byte
-	requestBody string
 	responseURL string
 	selectRune  string
 	selectFile  string
@@ -61,13 +56,13 @@ func normalizeInput(input string) string {
 }
 
 func sendRequest(ctx context.Context, endpoint string, requestBody string) (string, error) {
-	clientRequest := bytes.NewBufferString(requestBody)
+	clientRequest := strings.NewReader(requestBody)
 	preRequest, err := http.NewRequestWithContext(ctx, "POST", endpoint, clientRequest)
 	if err != nil {
 		return "", fmt.Errorf("error creating request: %v", err)
 	}
 
-	preRequest.Header.Set("Content-Type", "application/json")
+	preRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	client := &http.Client{}
 	postResponse, err := client.Do(preRequest)
 	if err != nil {
@@ -81,11 +76,6 @@ func sendRequest(ctx context.Context, endpoint string, requestBody string) (stri
 	}
 
 	return string(responseBody), nil
-}
-
-// WithTimeout returns a context with a timeout duration set
-func WithTimeout(d time.Duration) context.Context {
-	return context.Background()
 }
 
 func offlineQRgeneration() {
@@ -133,6 +123,15 @@ func main() {
 	flag.StringVar(&selectFile, "file", "", "Specify a file for upload.")
 	flag.Parse()
 
+	//Tuka
+	// if selectRune != "" {
+	// 	match, _ := regexp.MatchString("^[[:alnum:]]+$", strings.TrimSpace(strings.ReplaceAll(selectRune, " ", "")))
+	// 	if !match {
+	// 		log.Fatalf("Invalid rune: '%s'", selectRune)
+	// 		return
+	// 	}
+	// }
+
 	switch {
 	case *enableQRLFlag:
 		generateQRL = true
@@ -144,16 +143,53 @@ func main() {
 	}
 
 	// Call readFromStdin to store the piped data in the 'pipedData' variable.
-	info, _ := os.Stdin.Stat()
-	if (info.Mode() & os.ModeCharDevice) == 0 {
-		pipedData, _ = readFromStdin()
+	pipedData, err := readFromStdin()
+	if err != nil {
+		log.Fatalf("Error reading from standard input: %v", err)
 	}
 
 	// Create the timeoutFrame as a context
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeoutFrame)*time.Second)
 	defer cancel()
 
+	// // Build out the request as: Context, Type, Server's message endpoint, and the STDIN as a/the client message.
+	// clientRequest := strings.NewReader(fmt.Sprintf("message=%s&rune=%s", pipedData, normalizeInput(selectRune)))
+	// preRequest, err := http.NewRequestWithContext(ctx, "POST", messageEndpoint, clientRequest)
+	// if err != nil {
+	// 	fmt.Println("Error creating request:", err)
+	// 	return
+	// }
+	// // Set request headers
+	// preRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	//
+	// // Send the POST request to messageEndpoint
+	// client := &http.Client{}
+	// postResponse, err := client.Do(preRequest)
+	// if err != nil {
+	// 	log.Fatalf("Error sending POST request: %v", err)
+	// 	return
+	// }
+	// defer postResponse.Body.Close()
+	//
+	// // Read the POST response body
+	// responseBody, err := ioutil.ReadAll(postResponse.Body)
+	// if err != nil {
+	// 	log.Fatalf("Error reading response body: %v", err)
+	// 	return
+	// }
+	//
+	// /* In case it's wrapped in quptes
+	// responseURL := string(bytes.Trim(responseBody, "\"")) */
+	// responseURL := string(responseBody)
+
 	switch {
+	case selectRune != "":
+		requestBody := fmt.Sprintf("message=%s&rune=%s", pipedData, normalizeInput(selectRune))
+		responseURL, err = sendRequest(ctx, messageEndpoint, requestBody)
+		if err != nil {
+			log.Fatalf("Error sending message request: %v", err)
+			return
+		}
 	case selectFile != "":
 		requestBody := fmt.Sprintf("file=@%s", selectFile)
 		responseURL, err = sendRequest(ctx, fileEndpoint, requestBody)
@@ -161,40 +197,9 @@ func main() {
 			log.Fatalf("Error sending file request: %v", err)
 			return
 		}
-	case len(pipedData) == 0:
-		if selectFile != "" {
-			requestBody := fmt.Sprintf("file=@%s", selectFile)
-			responseURL, err = sendRequest(ctx, fileEndpoint, requestBody)
-			if err != nil {
-				log.Fatalf("Error sending file request: %v", err)
-				return
-			}
-		} else {
-			fmt.Println("Please enter a message:")
-			scanner := bufio.NewScanner(os.Stdin)
-			if scanner.Scan() {
-				requestBody := map[string]string{
-					"message": scanner.Text(),
-					"rune":    normalizeInput(selectRune),
-				}
-				requestBodyBytes, _ := json.Marshal(requestBody)
-				responseURL, err = sendRequest(ctx, messageEndpoint, string(requestBodyBytes))
-				if err != nil {
-					log.Fatalf("Error sending message request: %v", err)
-					return
-				}
-			} else {
-				fmt.Println("Error: no input provided.")
-				return
-			}
-		}
 	default:
-		requestBody := map[string]string{
-			"message": string(pipedData),
-			"rune":    normalizeInput(selectRune),
-		}
-		requestBodyBytes, _ := json.Marshal(requestBody)
-		responseURL, err = sendRequest(ctx, messageEndpoint, string(requestBodyBytes))
+		requestBody := fmt.Sprintf("message=%s&rune=%s", pipedData, normalizeInput(selectRune))
+		responseURL, err = sendRequest(ctx, messageEndpoint, requestBody)
 		if err != nil {
 			log.Fatalf("Error sending message request: %v", err)
 			return
