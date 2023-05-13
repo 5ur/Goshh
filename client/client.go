@@ -7,11 +7,14 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"os/user"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -60,32 +63,68 @@ func normalizeInput(input string) string {
 	return input
 }
 
-func sendRequest(ctx context.Context, endpoint string, requestBody string) (string, error) {
-	clientRequest := bytes.NewBufferString(requestBody)
-	preRequest, err := http.NewRequestWithContext(ctx, "POST", endpoint, clientRequest)
+func sendFile(ctx context.Context, endpoint, filePath string) (string, error) {
+	file, err := os.Open(filePath)
 	if err != nil {
-		return "", fmt.Errorf("error creating request: %v", err)
+		return "", err
+	}
+	defer file.Close()
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+
+	part, err := writer.CreateFormFile("file", filepath.Base(filePath))
+	if err != nil {
+		return "", err
+	}
+	_, err = io.Copy(part, file)
+
+	err = writer.Close()
+	if err != nil {
+		return "", err
 	}
 
-	preRequest.Header.Set("Content-Type", "application/json")
+	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, body)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+
 	client := &http.Client{}
-	postResponse, err := client.Do(preRequest)
+	resp, err := client.Do(req)
 	if err != nil {
-		return "", fmt.Errorf("error sending POST request: %v", err)
+		return "", err
 	}
-	defer postResponse.Body.Close()
+	defer resp.Body.Close()
 
-	responseBody, err := ioutil.ReadAll(postResponse.Body)
+	respBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", fmt.Errorf("error reading response body: %v", err)
+		return "", err
 	}
 
-	return string(responseBody), nil
+	return string(respBody), nil
 }
 
-// WithTimeout returns a context with a timeout duration set
-func WithTimeout(d time.Duration) context.Context {
-	return context.Background()
+func sendMessage(ctx context.Context, endpoint, requestBody string) (string, error) {
+	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(requestBody))
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	respBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	return string(respBody), nil
 }
 
 func offlineQRgeneration() {
@@ -155,19 +194,15 @@ func main() {
 
 	switch {
 	case selectFile != "":
-		requestBody := fmt.Sprintf("file=@%s", selectFile)
-		responseURL, err = sendRequest(ctx, fileEndpoint, requestBody)
+		responseURL, err = sendFile(ctx, fileEndpoint, selectFile)
 		if err != nil {
 			log.Fatalf("Error sending file request: %v", err)
-			return
 		}
 	case len(pipedData) == 0:
 		if selectFile != "" {
-			requestBody := fmt.Sprintf("file=@%s", selectFile)
-			responseURL, err = sendRequest(ctx, fileEndpoint, requestBody)
+			responseURL, err = sendFile(ctx, fileEndpoint, selectFile)
 			if err != nil {
 				log.Fatalf("Error sending file request: %v", err)
-				return
 			}
 		} else {
 			fmt.Println("Please enter a message:")
@@ -178,14 +213,12 @@ func main() {
 					"rune":    normalizeInput(selectRune),
 				}
 				requestBodyBytes, _ := json.Marshal(requestBody)
-				responseURL, err = sendRequest(ctx, messageEndpoint, string(requestBodyBytes))
+				responseURL, err = sendMessage(ctx, messageEndpoint, string(requestBodyBytes))
 				if err != nil {
 					log.Fatalf("Error sending message request: %v", err)
-					return
 				}
 			} else {
 				fmt.Println("Error: no input provided.")
-				return
 			}
 		}
 	default:
@@ -194,10 +227,9 @@ func main() {
 			"rune":    normalizeInput(selectRune),
 		}
 		requestBodyBytes, _ := json.Marshal(requestBody)
-		responseURL, err = sendRequest(ctx, messageEndpoint, string(requestBodyBytes))
+		responseURL, err = sendMessage(ctx, messageEndpoint, string(requestBodyBytes))
 		if err != nil {
 			log.Fatalf("Error sending message request: %v", err)
-			return
 		}
 	}
 
