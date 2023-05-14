@@ -1,5 +1,3 @@
-$GOSHHCONFIG = C:\Users\Petar\.config\Goshh\config.yaml
-
 ## TODO
 
  - [x] Set the random :id generation to a rune/charset because pluses break it as well
@@ -10,4 +8,3 @@ $GOSHHCONFIG = C:\Users\Petar\.config\Goshh\config.yaml
  - [x] Add a manifest and branding to the scripts.
  - [] Use github actions to compile the binaries
  - [] Add an openapi documentation html page as the root of the server
- - [] Stop using ChatGPT at some point.
