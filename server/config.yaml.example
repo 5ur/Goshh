@@ -11,4 +11,4 @@ allowedFileTypes:
   - jpg
 fileSavePath: "tmp/"
 staleFileTTL: "30s"
-allowedFileDownloadCount: 1
+allowedFileDownloadCount: 2
