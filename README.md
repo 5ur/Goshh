@@ -54,47 +54,49 @@ The others I saw were way too complex for me to build and understand, so I opted
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+You can download the pre-built binaries or you can clone the repository and build it yourself.
+In my old hardware it takes about 6 seconds to build, so it can only get better if you have any recent hardware.
 
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
+* Windows (Scoop)
+  ```Powershell
+  # Download Scoop and make life easier: https://scoop.sh/
+  irm get.scoop.sh | iex
+  scoop bucket add main
+  scoop install main/go
   ```
 
 ### Installation
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+1. Clone the repo
+   ```Powershell
+   git clone Placeholder
    ```
-3. Install NPM packages
-   ```sh
-   npm install
+2. Download the external go packages
+   ```Powershell
+   cd Placeholder
+   go mod tidy
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Build the binary
+   ```Powershell
+   go build
    ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+4. Create your config file
+  ```Powershell
+  mv config.yaml.example config.yaml; code/vim/notepad/ed config.yaml
+  ```
+5. That's it
 
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
+Placeholder
 _For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -111,7 +113,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- CONTRIBUTING -->
 ## Contributing
-
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
@@ -130,13 +131,17 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
+I chose MIT, because it seems ok for the project.  
+In essense, feel free to clone copy edit distribute, temm your friends you made this on your own, and/or whatever you want to. I made this for myself, I have the script, so I don't care if someone else is using it or making "money" or gettinf street cred from it.  
+I know for a fact that if it wasnt the go docs, stack*, other go projects, and grep.app I wouldn't have been able to make that, so It's not even mine, I just placed the lines one beneath the other.   
+Consider this set of files your property.
 
 
 <!-- CONTACT -->
 ## Contact
 Petar - [@placeholder](https://example.com) - 5150@penev.xyz
-
-
+Don't know what you would email me for, but here you go.  
+Maybe you are a rich motherfucker looking at random git repos and you'll give me money. I wouldn't mind getting more money.
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
@@ -145,6 +150,7 @@ Petar - [@placeholder](https://example.com) - 5150@penev.xyz
 * [Guy who made this README.md emplate](https://github.com/othneildrew/Best-README-Template) - Gave me the template which you are reading right now
 * [MS Paint](https://apps.microsoft.com/store/detail/paint/9PCFS5B6T72H) - Used it to draw the logos
 * [Pixlr](https://pixlr.com/x/) - Used it to make the logos transparent
+* [//Grep.app](https://grep.app/) - Found some nice examples in there.
 * [ChatGPT](https://openai.com/blog/chatgpt) - Retarded, slow, confusing and wrong, but gave me some **really** good tips when when I just started asking it for questions about logic rather than making it write code.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
