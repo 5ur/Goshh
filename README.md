@@ -91,14 +91,10 @@ _Below is an example of how you can instruct your audience on installing and set
   ```
 5. That's it
 
-
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 Placeholder
 _For more examples, please refer to the [Documentation](https://example.com)_
-
-
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -106,7 +102,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
  - [x] Clean up the "\"\n" shit at the end of the message contents.
  - [x] Add the QR code as a flag or config file option.
  - [x] Add file upload
- - [] Add pushover/gotify/azure notification/other push notification support in the Goshh binary or the server depending on if something is passed in the json body?
  - [x] Add a manifest and branding to the scripts.
  - [] Use github actions to compile the binaries
  - [] Add an openapi documentation html page as the root of the server
@@ -125,8 +120,6 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- LICENSE -->
 ## License
