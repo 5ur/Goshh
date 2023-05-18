@@ -1,3 +1,0 @@
-## Goshh client tool.
-____
-
