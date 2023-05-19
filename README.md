@@ -66,15 +66,32 @@ This is an example of how to list things you need to use the software and how to
   irm get.scoop.sh | iex
   scoop bucket add main
   scoop install main/go
+  
+  # Or just download it from: https://go.dev/dl/
+  ```
+  
+  * Linux
+  ```Shell
+  apt install golang
+  
+  # Or use: https://go.dev/doc/install
+  # Download from: https://go.dev/dl/
+  rm -rf /usr/local/go && tar -C /usr/local -xzf go*.linux-amd64.tar.gz
+  
+  # Add to /etc/profile or /etc/bash.bashrc
+  export PATH=$PATH:/usr/local/go/bin
   ```
 
 ### Installation
 
+#### Server:
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Clone the repo
    ```Powershell
-   git clone Placeholder
+   git clone https://github.com/5ur/Goshh-Server.git
+   cd .\Goshh-Server\
+   
    ```
 2. Download the external go packages
    ```Powershell
