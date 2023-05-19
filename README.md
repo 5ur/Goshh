@@ -58,7 +58,7 @@ You can download the pre-built binaries or you can clone the repository and buil
 In my old hardware it takes about 6 seconds to build, so it can only get better if you have any recent hardware.
 
 ### Prerequisites
-> Go versions above 1.16
+### Go versions above 1.16
 This is an example of how to list things you need to use the software and how to install them.
 * Windows (Scoop)
   ```Powershell
