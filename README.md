@@ -103,7 +103,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
  - [x] Add the QR code as a flag or config file option.
  - [x] Add file upload
  - [x] Add a manifest and branding to the scripts.
- - [x] Use github actions to compile the binaries
  - [] Add an openapi documentation html page as the root of the server
 
 <!-- CONTRIBUTING -->
