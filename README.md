@@ -58,9 +58,11 @@ You can download the pre-built binaries or you can clone the repository and buil
 In my old hardware it takes about 6 seconds to build, so it can only get better if you have any recent hardware.
 
 ### Prerequisites
+
 ### Go versions above 1.16
+
 This is an example of how to list things you need to use the software and how to install them.
-* Windows (Scoop)
+#### Windows
   ```Powershell
   # Download Scoop and make life easier: https://scoop.sh/
   irm get.scoop.sh | iex
@@ -70,7 +72,7 @@ This is an example of how to list things you need to use the software and how to
   # Or just download it from: https://go.dev/dl/
   ```
   
-  * Linux
+#### Linux
   ```Shell
   apt install golang
   
@@ -147,7 +149,7 @@ cd Goshh-Server/
 ```
 2. Build in the same way
 ```Shell
-# If need be (eg; missing go.mod)
+# If need be (eg; missing go.mod or you have a diferent go version)
 go mod init Gosh-Server
 go mod tidy
 
@@ -191,7 +193,7 @@ Linux:
 ```Bash
 ./Goshh-Server
 ```
-### Service
+### As a service
 #### Windows
 .NET
 I'm not explining or giving a template for this.
@@ -214,8 +216,9 @@ useradd -m -d /home/gohh -s /bin/bash gohh
 
 # Lock the user, you won't be using it for anything. Besides you can just su to it.
 passwd -l gohh
-
 ```
+vim /etc/systemd/system/goshh-server.service
+and place the following, or something like it in the new file: [the man page](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
 ```Bash
 [Unit]
 Description=Goshh Server
@@ -234,7 +237,13 @@ StandardError=file:/var/log/goshh-server.log
 WantedBy=default.target
 ```
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Enable and start:
+```Shell
+systemctl enable goshh-server
+systemctl start goshh-server
+```
+
+_For more examples, please refer to the [Documentation](https://placeholder)_
 
 <!-- ROADMAP -->
 ## Roadmap
