@@ -21,8 +21,8 @@ I saw a few projects that were interesting like; [ots](https://github.com/Luzife
 The others I saw were way too complex for me to build and understand, so I opted to make something for myself.  
 
 ### Links to the repositories
-[Goshh-Server](https://github.com/5ur/Goshh-Server)  
-[Goshh-Client](https://github.com/5ur/Goshh-Client)  
+[Goshh-Server](https://github.com/5ur/Goshh-Server)      <img src="logos/server_logo.png" width="10%" height="10%">
+[Goshh-Client](https://github.com/5ur/Goshh-Client)      <img src="logos/client_logo.png" width="10%" height="10%">
 
 ### Built With
 [![Go][Go]][Go-url] [![Powershell][Powershell]][Powershell-url] [![Vim][Vim]][Vim-url] [![Exchange][StackExchange]][StackExchange-url] [![Overflow][StackOverflow]][StackOverflow-url] [![Windows][Windows]][Windows-url]
@@ -38,7 +38,7 @@ The others I saw were way too complex for me to build and understand, so I opted
 
 <!-- LICENSE -->
 ## License
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.  
 I chose MIT, because it seems ok for the project.  
 In essence, feel free to clone, copy, edit, distribute, tell your friends you made this on your own, and/or whatever you want to.  
 I made this for myself - I have the script, so I don't care if someone else is using it, making "money" or getting street cred from it.  
