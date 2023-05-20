@@ -19,19 +19,18 @@ I saw a few projects that were interesting like; [ots](https://github.com/Luzife
 The others I saw were way too complex for me to build and understand, so I opted to make something for myself.  
 
 ### Links to the repositories
-<div align="center">
+<div>
   <a href="https://github.com/5ur/Goshh-Server">
     <img src="logos/server_logo.png" alt="Logo" width="10%" height="10%">
   </a>
-<p align="center">
+<p>
   Goshh-Client
 </div>
 
-<div align="center">
+<div>
   <a href="https://github.com/5ur/Goshh-Client">
     <img src="logos/client_logo.png" alt="Logo" width="10%" height="10%">
   </a>
-<p align="center">
   Goshh-Client
 </div>
 
