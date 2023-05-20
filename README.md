@@ -10,8 +10,6 @@
 
 <p align="center">
   A Go message and file sharing service
-  <br />
-  <a href="https://github.com/othneildrew/Best-README-Template"><strong>Wiki»</strong></a>
 </div>
 
 <!-- ABOUT -->
@@ -21,8 +19,8 @@ I saw a few projects that were interesting like; [ots](https://github.com/Luzife
 The others I saw were way too complex for me to build and understand, so I opted to make something for myself.  
 
 ### Links to the repositories
-[Goshh-Server](https://github.com/5ur/Goshh-Server)      <img src="logos/server_logo.png" width="10%" height="10%">
-[Goshh-Client](https://github.com/5ur/Goshh-Client)      <img src="logos/client_logo.png" width="10%" height="10%">
+[Goshh-Server](https://github.com/5ur/Goshh-Server) <img href="https://github.com/5ur/Goshh-Server" src="logos/server_logo.png" width="10%" height="10%">
+[Goshh-Client](https://github.com/5ur/Goshh-Client) <img href="https://github.com/5ur/Goshh-Client" src="logos/client_logo.png" width="10%" height="10%">
 
 ### Built With
 [![Go][Go]][Go-url] [![Powershell][Powershell]][Powershell-url] [![Vim][Vim]][Vim-url] [![Exchange][StackExchange]][StackExchange-url] [![Overflow][StackOverflow]][StackOverflow-url] [![Windows][Windows]][Windows-url]
