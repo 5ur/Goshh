@@ -21,8 +21,8 @@ I saw a few projects that were interesting like; [ots](https://github.com/Luzife
 The others I saw were way too complex for me to build and understand, so I opted to make something for myself.  
 
 ### Links to the repositories
-[Goshh-Server](https://github.com/5ur/Goshh-Server)
-[Goshh-Client](https://github.com/5ur/Goshh-Client)
+[Goshh-Server](https://github.com/5ur/Goshh-Server)  
+[Goshh-Client](https://github.com/5ur/Goshh-Client)  
 
 ### Built With
 [![Go][Go]][Go-url] [![Powershell][Powershell]][Powershell-url] [![Vim][Vim]][Vim-url] [![Exchange][StackExchange]][StackExchange-url] [![Overflow][StackOverflow]][StackOverflow-url] [![Windows][Windows]][Windows-url]
