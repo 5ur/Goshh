@@ -46,6 +46,7 @@ The others I saw were way too complex for me to build and understand, so I opted
  - [x] Add the QR code as a flag or config file option.
  - [x] Add file upload
  - [x] Add a manifest and branding to the scripts.
+ - [] Add client-side encryption
  - [] Add an openapi documentation html page as the root of the server
 
 <!-- LICENSE -->
@@ -77,7 +78,6 @@ Maybe you are a rich motherfucker looking at random git repos and you'll give me
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[product-screenshot]: logo/logo.png
 [Go]: https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white
 [Go-url]: https://go.dev/doc/
 
