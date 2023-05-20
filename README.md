@@ -29,7 +29,7 @@ The others I saw were way too complex for me to build and understand, so I opted
 
 <div>
   <a href="https://github.com/5ur/Goshh-Client">
-    <img src="logos/client_logo.png" alt="Logo" width="13%" height="13%">
+    <img src="logos/client_logo.png" alt="Logo" width="11%" height="11%">
   </a>
   <p>
   Goshh-Client
