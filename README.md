@@ -23,14 +23,15 @@ The others I saw were way too complex for me to build and understand, so I opted
   <a href="https://github.com/5ur/Goshh-Server">
     <img src="logos/server_logo.png" alt="Logo" width="10%" height="10%">
   </a>
-<p>
-  Goshh-Client
+  <p>
+  Goshh-Server
 </div>
 
 <div>
   <a href="https://github.com/5ur/Goshh-Client">
-    <img src="logos/client_logo.png" alt="Logo" width="10%" height="10%">
+    <img src="logos/client_logo.png" alt="Logo" width="13%" height="13%">
   </a>
+  <p>
   Goshh-Client
 </div>
 
