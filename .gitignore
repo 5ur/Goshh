@@ -163,4 +163,5 @@ _testmain.go
 /test/times.out
 /Goshh*/
 /old/
-
+*old*
+*back
