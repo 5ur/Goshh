@@ -19,21 +19,12 @@ I saw a few projects that were interesting like; [ots](https://github.com/Luzife
 The others I saw were way too complex for me to build and understand, so I opted to make something for myself.  
 
 ### Links to the repositories
-<div>
+<p float="left">
   <a href="https://github.com/5ur/Goshh-Server">
-    <img src="logos/server_logo.png" alt="Logo" width="10%" height="10%">
-  </a>
-  <p>
-  Goshh-Server
-</div>
-
-<div>
-  <a href="https://github.com/5ur/Goshh-Client">
-    <img src="logos/client_logo.png" alt="Logo" width="11%" height="11%">
-  </a>
-  <p>
-  Goshh-Client
-</div>
+  <img src="logos/server_logo.png" width="33%" />
+   <a href="https://github.com/5ur/Goshh-Client">
+  <img src="logos/client_logo.png" width="33%" />
+</p>
 
 
 ### Built With
@@ -46,6 +37,9 @@ The others I saw were way too complex for me to build and understand, so I opted
  - [x] Add the QR code as a flag or config file option.
  - [x] Add file upload
  - [x] Add a manifest and branding to the scripts.
+ - [] Create front-end for a more mobile friendly experience
+ - [] Add automatic clear config option for the QR code print-out
+ - [] _Maybe:_ Increase the QR buffer
  - [] Add client-side encryption
  - [] Add an openapi documentation html page as the root of the server
 
