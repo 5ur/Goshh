@@ -21,9 +21,9 @@ The others I saw were way too complex for me to build and understand, so I opted
 ### Links to the repositories
 <p float="left">
   <a href="https://github.com/5ur/Goshh-Server">
-  <img src="logos/server_logo.png" width="33%" />
+  <img src="logos/server_logo.png" width="20%" />
    <a href="https://github.com/5ur/Goshh-Client">
-  <img src="logos/client_logo.png" width="33%" />
+  <img src="logos/client_logo.png" width="20%" />
 </p>
 
 
