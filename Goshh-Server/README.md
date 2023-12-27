@@ -5,7 +5,7 @@
 <!-- LOGO -->
 <br />
 <div align="center">
-  <a href="Installation">
+  <a href="#Installation">
     <img src="https://github.com/5ur/Goshh/blob/main/logos/server_logo.png" alt="Logo" width="35%" height="35%">
   </a>
 
