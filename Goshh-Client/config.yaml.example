@@ -1,0 +1,5 @@
+messageEndpoint: http://sisyphus.local:5150/message
+fileEndpoint: http://sisyphus.local:5150/upload
+timeoutFrame: 300
+generateQRL: false
+generateQRC: false
